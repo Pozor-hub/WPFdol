@@ -1,0 +1,48 @@
+﻿<Window x:Class="WPFdol.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFdol"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <ListBox Name="EmployeeList" ItemsSource="{Binding Employees}">
+
+        </ListBox>
+
+        <StackPanel Grid.Column="1" DataContext="{Binding ElementName=EmployeeList, Path=SelectedItem}">
+            <Label>Фамилия</Label>
+            <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label>Имя</Label>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label>Отчество</Label>
+            <TextBox Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label>Должность</Label>
+            <ComboBox Name="PositionList" SelectedItem="{Binding Position}"></ComboBox>
+
+        </StackPanel>
+
+        <StackPanel Name="NewEmployeePanel" Grid.Column="2" DataContext="{Binding NewEmployee}">
+            <Label>Фамилия</Label>
+            <TextBox IsEnabled="False" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label>Имя</Label>
+            <TextBox IsEnabled="False" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label>Отчество</Label>
+            <TextBox IsEnabled="False" Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label>Должность</Label>
+            <ComboBox IsEnabled="False" Name="CreatePositionList" SelectedItem="{Binding Position}"></ComboBox>
+            <Button Name="ButtonCreateEmployee" Click="Button_Click" Content="Новый сотрудник"></Button>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2">
+
+        </StackPanel>
+    </Grid>
+</Window>
