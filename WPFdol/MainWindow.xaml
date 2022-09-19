@@ -26,8 +26,13 @@
             <TextBox Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Label>Должность</Label>
             <ComboBox Name="PositionList" SelectedItem="{Binding Position}"></ComboBox>
-
+            
+            <Label>Создать новую должность</Label>
+            <TextBox Name="textBoxNewPosition"></TextBox>
+            <Button Name="ButtonCreatePosition" Click="Button_Click_2" Content="Создать"></Button>
         </StackPanel>
+
+        
 
         <StackPanel Name="NewEmployeePanel" Grid.Column="2" DataContext="{Binding NewEmployee}">
             <Label>Фамилия</Label>

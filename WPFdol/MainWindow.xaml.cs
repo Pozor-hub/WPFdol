@@ -30,25 +30,21 @@ namespace WPFdol
             InitializeComponent();
 
             DataContext = this;
-            Positions = new ObservableCollection<string>()
-            {
-                "Директор", "Менеджер", "Продавец"
-            };
+            Positions = new ObservableCollection<string>();
 
-            Employees = new ObservableCollection<Employee>()
-            {
-                new Employee("Коренев", "Сергей", "Владимирович", Positions[2])
-            };
+            Employees = new ObservableCollection<Employee>();
+            
 
             Binding binding = new Binding();
             binding.Source = Positions;
 
             NewEmployee = new Employee("", "", "", Positions[0]);
 
+
             PositionList.SetBinding(ComboBox.ItemsSourceProperty, binding);
             CreatePositionList.SetBinding(ComboBox.ItemsSourceProperty, binding);
 
-            Connect("localhost", "5432", "Denis", "1234", "Workers");
+            Connect("localhost", "5432", "postgres", "1234", "Workers");
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -88,10 +84,44 @@ namespace WPFdol
 
         private void Connect(string host, string port, string user, string pass, string dbname)
         {
-            string cs = string.Format("Server={0}; Port={1); User ID={2}; Password={3}; DataBase={4}", host, port, user, pass, dbname);
-
-            connection = new NpgsqlConnection(cs);
+            string connString = "Host=localhost;Username=postgres;Password=1234;Database=Workers";
+            NpgsqlConnection nc = new NpgsqlConnection(connString);
+            connection = new NpgsqlConnection();
             connection.Open();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            string positionName = textBoxNewPosition.Text.Trim();
+            if (positionName.Length==0) return;
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = connection;
+            command.CommandText = "INSERT INTO Position(Position) VALUES(@name)";
+            command.Parameters.AddWithValue("@name", NpgsqlDbType.Varchar, positionName);
+
+            int result = command.ExecuteNonQuery();
+            if (result==1)
+            {
+                MessageBox.Show("Должность успешно добавлена!");
+                LoadPositions();
+            }
+        }
+
+        private void LoadPositions()
+        {
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection =connection;
+            command.CommandText = "SELECT name FROM position ORDER BY name";
+            NpgsqlDataReader result = command.ExecuteReader();
+            if (result.HasRows)
+            {
+                while(result.Read())
+                {
+                    Positions.Add(result.GetString(0));
+                }
+            }
+            result.Close();
         }
 
     }
