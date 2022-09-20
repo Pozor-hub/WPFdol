@@ -13,41 +13,45 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <ListBox Name="EmployeeList" ItemsSource="{Binding Employees}">
+        <GroupBox Grid.Column="0" Margin="10" Header="Создать специальность" Foreground="purple" FontWeight="Bold" FontSize="13" BorderThickness="3" BorderBrush="#FF00F9FF">
+            <StackPanel Background="#FFECFDFF">
+                <Label FontWeight="Bold" FontSize="13">Код</Label>
+                <TextBox Template="{DynamicResource TextBoxTemplate1}"></TextBox>
+                <Label  FontWeight="Bold" FontSize="13">Наименование</Label>
+                <TextBox  Template="{DynamicResource TextBoxTemplate1}"></TextBox>
+                <Label FontWeight="Bold" FontSize="13">Квалификация</Label>
+                <TextBox  Template="{DynamicResource TextBoxTemplate1}"></TextBox>
+                <Button x:Name="ButtonCreateЫpeciality" Click="Button_Click_3" Content="Создать" FontWeight="Bold" Height="20" Foreground="purple" />
+            </StackPanel>
+        </GroupBox>
 
-        </ListBox>
+        <GroupBox Grid.Column="1" Margin="10" Header="Создать группу" Foreground="purple" FontWeight="Bold" FontSize="13"  BorderThickness="3" BorderBrush="#FF00F9FF">
+            <StackPanel Grid.Column="1" DataContext="{Binding ElementName=EmployeeList, Path=SelectedItem}" Background="#FFECFDFF" >
+               
+                 <Label FontWeight="Bold" FontSize="13">Номер</Label>
+                 <TextBox Template="{DynamicResource TextBoxTemplate1}" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                 <Label FontWeight="Bold" FontSize="13">Курс</Label>
+                 <TextBox Template="{DynamicResource TextBoxTemplate1}"  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                 <Label FontWeight="Bold" FontSize="13">Специальность</Label>
+                 <ListBox Height="150"/>
+                 <Button x:Name="ButtonCreatePosition" Click="Button_Click_2" Content="Создать" FontWeight="Bold" Height="20" Foreground="purple"/>
 
-        <StackPanel Grid.Column="1" DataContext="{Binding ElementName=EmployeeList, Path=SelectedItem}">
-            <Label>Фамилия</Label>
-            <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Label>Имя</Label>
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Label>Отчество</Label>
-            <TextBox Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Label>Должность</Label>
-            <ComboBox Name="PositionList" SelectedItem="{Binding Position}"></ComboBox>
-            
-            <Label>Создать новую должность</Label>
-            <TextBox Name="textBoxNewPosition"></TextBox>
-            <Button Name="ButtonCreatePosition" Click="Button_Click_2" Content="Создать"></Button>
-        </StackPanel>
+            </StackPanel>
+        </GroupBox>
 
-        
+        <GroupBox Grid.Column="2" Margin="10" Header="Создать группу" Foreground="purple" FontWeight="Bold" FontSize="13"  BorderThickness="3" BorderBrush="#FF00F9FF">
+            <StackPanel Name="NewEmployeePanel" Grid.Column="2" DataContext="{Binding NewEmployee}" Background="#FFECFDFF" >
+           
+                 <Label Padding="0 5 0 0" FontWeight="Bold" FontSize="13">Фамилия</Label>
+                 <TextBox Template="{DynamicResource TextBoxTemplate1}"  IsEnabled="False" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                 <Label FontWeight="Bold" FontSize="13">Имя</Label>
+                 <TextBox Template="{DynamicResource TextBoxTemplate1}"  IsEnabled="False" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                 <Label FontWeight="Bold" FontSize="13">Группа</Label>
+                 <ListBox Height="150"></ListBox>
+                 <Button x:Name="ButtonCreateEmployee" Click="Button_Click" Content="Создать" FontWeight="Bold" Height="20" Foreground="purple" />
 
-        <StackPanel Name="NewEmployeePanel" Grid.Column="2" DataContext="{Binding NewEmployee}">
-            <Label>Фамилия</Label>
-            <TextBox IsEnabled="False" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Label>Имя</Label>
-            <TextBox IsEnabled="False" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Label>Отчество</Label>
-            <TextBox IsEnabled="False" Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Label>Должность</Label>
-            <ComboBox IsEnabled="False" Name="CreatePositionList" SelectedItem="{Binding Position}"></ComboBox>
-            <Button Name="ButtonCreateEmployee" Click="Button_Click" Content="Новый сотрудник"></Button>
-        </StackPanel>
+             </StackPanel>
+        </GroupBox>
 
-        <StackPanel Grid.Column="2">
-
-        </StackPanel>
     </Grid>
 </Window>

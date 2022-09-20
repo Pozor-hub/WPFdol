@@ -38,13 +38,13 @@ namespace WPFdol
             Binding binding = new Binding();
             binding.Source = Positions;
 
-           
+            
 
 
             PositionList.SetBinding(ComboBox.ItemsSourceProperty, binding);
             CreatePositionList.SetBinding(ComboBox.ItemsSourceProperty, binding);
 
-            Connect("10.14.206.27", "5432", "student", "1234", "Workers");
+            Connect("10.14.206.27", "5432", "student", "1234", "Min363");
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -84,7 +84,7 @@ namespace WPFdol
 
         private void Connect(string host, string port, string user, string pass, string dbname)
         {
-            string cs  = string.Format ("Host=10.14.206.27;Username=student;Password=1234;Database=Workers");
+            string cs  = string.Format ("Host=10.14.206.27;Username=student;Password=1234;Database=363Min");
             NpgsqlConnection nc = new NpgsqlConnection(cs);
             connection = new NpgsqlConnection(cs);
             connection.Open();
