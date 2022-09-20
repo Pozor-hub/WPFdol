@@ -13,9 +13,9 @@ namespace WPFdol
         private string surname;
         private string name;
         private string patronymic;
-        private string position;
+        private int position;
 
-        public Employee(string surname, string name, string patronymic, string position)
+        public Employee(string surname, string name, string patronymic, int position)
         {
             Name = name;
             Surname = surname;
@@ -53,7 +53,7 @@ namespace WPFdol
                 OnPropertyChanged(new PropertyChangedEventArgs("Patronymic"));
             }
         }
-        public string Position
+        public int Position
         {
             get => position;
             set
