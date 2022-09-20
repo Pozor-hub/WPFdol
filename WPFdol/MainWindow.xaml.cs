@@ -24,27 +24,31 @@ namespace WPFdol
         private NpgsqlConnection connection;
         public ObservableCollection<Employee> Employees { get; set; }
         public ObservableCollection<string> Positions { get; set; }
+
         public Employee NewEmployee { get; set; }
+       
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = this;
+           
             Positions = new ObservableCollection<string>();
-
             Employees = new ObservableCollection<Employee>();
             
 
             Binding binding = new Binding();
             binding.Source = Positions;
 
-           
-
+            
 
             PositionList.SetBinding(ComboBox.ItemsSourceProperty, binding);
             CreatePositionList.SetBinding(ComboBox.ItemsSourceProperty, binding);
 
             Connect("10.14.206.27", "5432", "student", "1234", "Workers");
+            LoadPositions();
+            LoadWorkers();
+
+            DataContext = this;
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -56,6 +60,49 @@ namespace WPFdol
             ButtonCreateEmployee.Click += Confirm;
 
             Employees.Add(NewEmployee);
+
+            
+
+            string WorkersSurname = TextSurname.Text.Trim();
+            if (WorkersSurname.Length == 0) return;
+            string WorkersName = TextName.Text.Trim();
+            if (WorkersName.Length == 0) return;
+            string WorkersPatronymic = TextPatronymic.Text.Trim();
+            if (WorkersSurname.Length == 0) return;
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = connection;
+            command.CommandText = "INSERT INTO \"Workers\"(\"Surname\", \"Name\", \"Patronymic\") VALUES(@a, @b, @c)";
+            command.Parameters.AddWithValue("@a", NpgsqlDbType.Varchar, WorkersSurname);
+            command.Parameters.AddWithValue("@b", NpgsqlDbType.Varchar, WorkersName);
+            command.Parameters.AddWithValue("@c", NpgsqlDbType.Varchar, WorkersPatronymic);
+            int result = command.ExecuteNonQuery();
+            if (result == 1)
+            {
+                MessageBox.Show("Сотрудник успешно добавлен!");
+                LoadWorkers();
+            }
+
+
+        }
+        private void LoadWorkers()
+        {
+            Employees.Clear();
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = connection;
+            command.CommandText = "SELECT \"Surname\", \"Name\", \"Patronymic\", \"Position\" FROM \"Workers\"";
+            var result = command.ExecuteReader();
+            if (result == null) return;
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    Employees.Add(new Employee(result.GetString(0), result.GetString(1), result.GetString(2), result.GetInt32(3)));
+
+                }
+            }
+            result.Close();
         }
 
         private void Confirm(object sender, RoutedEventArgs e)
@@ -66,7 +113,7 @@ namespace WPFdol
             ButtonCreateEmployee.Click += Button_Click;
             ButtonCreateEmployee.Click -= Confirm;
 
-            NewEmployee = new Employee("", "", "", Positions[0]);
+            
             NewEmployeePanel.GetBindingExpression(DataContextProperty).UpdateTarget();
         }
 
@@ -123,6 +170,14 @@ namespace WPFdol
             }
             result.Close();
         }
+
+
+
+
+
+
+
+
 
     }
 }

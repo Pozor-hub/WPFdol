@@ -36,11 +36,11 @@
 
         <StackPanel Name="NewEmployeePanel" Grid.Column="2" DataContext="{Binding NewEmployee}">
             <Label>Фамилия</Label>
-            <TextBox IsEnabled="False" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Name="TextSurname" IsEnabled="False" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Label>Имя</Label>
-            <TextBox IsEnabled="False" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Name="TextName" IsEnabled="False" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Label>Отчество</Label>
-            <TextBox IsEnabled="False" Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Name="TextPatronymic" IsEnabled="False" Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Label>Должность</Label>
             <ComboBox IsEnabled="False" Name="CreatePositionList" SelectedItem="{Binding Position}"></ComboBox>
             <Button Name="ButtonCreateEmployee" Click="Button_Click" Content="Новый сотрудник"></Button>
