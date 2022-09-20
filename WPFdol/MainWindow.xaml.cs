@@ -38,13 +38,13 @@ namespace WPFdol
             Binding binding = new Binding();
             binding.Source = Positions;
 
-            NewEmployee = new Employee("", "", "", Positions[0]);
+           
 
 
             PositionList.SetBinding(ComboBox.ItemsSourceProperty, binding);
             CreatePositionList.SetBinding(ComboBox.ItemsSourceProperty, binding);
 
-            Connect("localhost", "5432", "postgres", "1234", "Workers");
+            Connect("10.14.206.27", "5432", "student", "1234", "Workers");
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -84,9 +84,9 @@ namespace WPFdol
 
         private void Connect(string host, string port, string user, string pass, string dbname)
         {
-            string connString = "Host=localhost;Username=postgres;Password=1234;Database=Workers";
-            NpgsqlConnection nc = new NpgsqlConnection(connString);
-            connection = new NpgsqlConnection();
+            string cs  = string.Format ("Host=10.14.206.27;Username=student;Password=1234;Database=Workers");
+            NpgsqlConnection nc = new NpgsqlConnection(cs);
+            connection = new NpgsqlConnection(cs);
             connection.Open();
         }
 
@@ -97,7 +97,7 @@ namespace WPFdol
 
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = connection;
-            command.CommandText = "INSERT INTO Position(Position) VALUES(@name)";
+            command.CommandText = "INSERT INTO \"Position\"(\"Position\") VALUES(@name)";
             command.Parameters.AddWithValue("@name", NpgsqlDbType.Varchar, positionName);
 
             int result = command.ExecuteNonQuery();
@@ -111,8 +111,8 @@ namespace WPFdol
         private void LoadPositions()
         {
             NpgsqlCommand command = new NpgsqlCommand();
-            command.Connection =connection;
-            command.CommandText = "SELECT name FROM position ORDER BY name";
+            command.Connection = connection;
+            command.CommandText = "SELECT \"Position\" FROM \"Position\" ORDER BY \"Position\"";
             NpgsqlDataReader result = command.ExecuteReader();
             if (result.HasRows)
             {
