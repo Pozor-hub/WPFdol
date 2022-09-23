@@ -21,7 +21,7 @@
                 <TextBox  Template="{DynamicResource TextBoxTemplate1}"></TextBox>
                 <Label FontWeight="Bold" FontSize="13">Квалификация</Label>
                 <TextBox  Template="{DynamicResource TextBoxTemplate1}"></TextBox>
-                <Button x:Name="ButtonCreateЫpeciality" Click="Button_Click_3" Content="Создать" FontWeight="Bold" Height="20" Foreground="purple" />
+                <Button x:Name="ButtonCreateSpeciality" Click="Button_Click_3" Content="Создать" FontWeight="Bold" Height="20" Foreground="purple" />
             </StackPanel>
         </GroupBox>
 

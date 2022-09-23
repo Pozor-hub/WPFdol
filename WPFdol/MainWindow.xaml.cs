@@ -41,8 +41,6 @@ namespace WPFdol
             
 
 
-            PositionList.SetBinding(ComboBox.ItemsSourceProperty, binding);
-            CreatePositionList.SetBinding(ComboBox.ItemsSourceProperty, binding);
 
             Connect("10.14.206.27", "5432", "student", "1234", "Min363");
 
