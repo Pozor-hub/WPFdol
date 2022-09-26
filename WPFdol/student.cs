@@ -13,13 +13,11 @@ namespace WPFdol
             private string surname;
             private string name;
 
-
             public student(string number, string course)
             {
                 Surname = surname;
 
                 Name = name;
-
             }
 
             public string Surname
@@ -30,7 +28,6 @@ namespace WPFdol
                     surname = value;
                     OnPropertyChanged(new PropertyChangedEventArgs("Surname"));
                 }
-
             }
             public string Name
             {
@@ -40,7 +37,6 @@ namespace WPFdol
                     name = value;
                     OnPropertyChanged(new PropertyChangedEventArgs("Name"));
                 }
-
             }
 
             public event PropertyChangedEventHandler PropertyChanged;

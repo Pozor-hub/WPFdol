@@ -44,8 +44,12 @@ namespace WPFdol
 
             Connect("10.14.206.27", "5432", "Denis", "1234", "363Min");
 
-            //Binding binding = new Binding();
-            //binding.Source = Codes;
+            Binding binding = new Binding();
+            binding.Source = Specialitys;
+
+            specialty_groups.SetBinding(ListBox.ItemsSourceProperty, binding);
+
+
             //binding.Source = Numbers;
 
             LoadSpec();
@@ -63,30 +67,28 @@ namespace WPFdol
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            
-            Specialitys.Add(NewSpeciality);
+            code_specialty.Text = code_specialty.Text.Trim();
+            if (code_specialty.Text.Length == 0) return;
 
-            string CodeSpec = code_specialty.Text.Trim();
-            if (CodeSpec.Length == 0) return;
-            string NameSpec = name_specialty.Text.Trim();
-            if (NameSpec.Length == 0) return;
+            int code = int.Parse(code_specialty.Text);
+
+            string name = name_specialty.Text.Trim();
+            if (name.Length == 0) return;
             string qualification = kval_specialty.Text.Trim();
             if (qualification.Length == 0) return;
 
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = connection;
-            command.CommandText = "INSERT INTO speciality(code, namespec, qualifiation) VALUES(@a, @b, @c)";
-            command.Parameters.AddWithValue("@a", NpgsqlDbType.Varchar, CodeSpec);
-            command.Parameters.AddWithValue("@b", NpgsqlDbType.Varchar, NameSpec);
-            command.Parameters.AddWithValue("@c", NpgsqlDbType.Varchar, qualification);
-
+            command.CommandText = "INSERT INTO specialty (code, caption, qualification) VALUES (@code, @name, @qualification)";
+            command.Parameters.AddWithValue("@code", code);
+            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@qualification", qualification);
             int result = command.ExecuteNonQuery();
             if (result == 1)
             {
-                MessageBox.Show("Специальность успешно добавлена!");
+                MessageBox.Show("Специальность успешно добавлена");
                 LoadSpec();
             }
-
         }
         private void LoadSpec()
         {
@@ -101,26 +103,28 @@ namespace WPFdol
             {
                 while (result.Read())
                 {
-                    Specialitys.Add(new Specialty(result.GetString(0), result.GetString(1), result.GetString(2)));
+                    Specialitys.Add(new Specialty(result.GetInt32(0), result.GetString(1), result.GetString(2)));
                 }
             }
             result.Close();
         }
-
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            
             Groups.Add(NewGroups);
 
-            string number_group = number_groups.Text.Trim();
-            if (number_group.Length == 0) return;
-            string CourseGroup = course_groups.Text.Trim();
-            if (CourseGroup.Length == 0) return;
+            string numberGroup = NumberGroup.Text.Trim();
+            if (numberGroup.Length == 0) return;
+
+            string course = Course.Text.Trim();
+            if (course.Length == 0) return;
+
 
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = connection;
-            command.CommandText = "INSERT INTO group(number, course) VALUES(@a, @b)";
-            command.Parameters.AddWithValue("@a", NpgsqlDbType.Varchar, number_group);
-            command.Parameters.AddWithValue("@b", NpgsqlDbType.Varchar, CourseGroup);
+            command.CommandText = "INSERT INTO \"group\"(number, course) VALUES(@number, @course)";
+            command.Parameters.AddWithValue("@number", NpgsqlDbType.Varchar, numberGroup);
+            command.Parameters.AddWithValue("@course", NpgsqlDbType.Varchar, course);
 
             int result = command.ExecuteNonQuery();
             if (result == 1)
@@ -128,8 +132,8 @@ namespace WPFdol
                 MessageBox.Show("Группа успешно добавлена!");
                 LoadGroup();
             }
-        }
 
+        }
         private void LoadGroup()
         {
             Groups.Clear();
@@ -149,25 +153,24 @@ namespace WPFdol
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-
             Students.Add(NewStudent);
 
-            string SurName = surname_groups.Text.Trim();
-            if (SurName.Length == 0) return;
-            string StName = name_groups.Text.Trim();
-            if (StName.Length == 0) return;
+            string number_group = number_groups.Text.Trim();
+            if (number_group.Length == 0) return;
+            string CourseGroup = course_groups.Text.Trim();
+            if (CourseGroup.Length == 0) return;
 
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = connection;
-            command.CommandText = "INSERT INTO \"Position\"(\"Position\") VALUES(@a, @b)";
-            command.Parameters.AddWithValue("@a", NpgsqlDbType.Varchar, SurName);
-            command.Parameters.AddWithValue("@b", NpgsqlDbType.Varchar, StName);
+            command.CommandText = "INSERT INTO group(course, speciality) VALUES(@course, @speciality)";
+            command.Parameters.AddWithValue("@cource", NpgsqlDbType.Varchar, number_group);
+            command.Parameters.AddWithValue("@speciality", NpgsqlDbType.Varchar, CourseGroup);
 
             int result = command.ExecuteNonQuery();
             if (result == 1)
             {
-                MessageBox.Show("Студент успешно добавлен!");
-
+                MessageBox.Show("Студент успешно добавлена!");
+                LoadGroup();
             }
         }
     }

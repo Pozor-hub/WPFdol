@@ -22,36 +22,18 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        <Style TargetType="{x:Type ListBox}">
+        <Style x:Key="SpecialtyStyle" TargetType="{x:Type ListBox}">
             <Setter Property="Margin" Value="10 0 10 10"/>
             <Setter Property="BorderBrush" Value="DarkCyan"/>
             <Setter Property="ItemTemplate">
                 <Setter.Value>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="24"/>
-                                <RowDefinition Height="24"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="48"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-
-                            <Border Grid.RowSpan="2" Background="Orange"></Border>
-
-                            <TextBlock Margin="5" Grid.Column="1" Grid.Row="0">
-                                <Run Text="{Binding Surname}"></Run>
-                                <Run Text="{Binding Name}"></Run>
-                                <Run Text="{Binding Patronymic}"></Run>
-                            </TextBlock>
-
-                            <TextBlock Margin="5" FontWeight="Bold" Grid.Column="1" Grid.Row="1">
-                                <Run Text="{Binding ID}"></Run>
-                                <Run Foreground="DarkMagenta" Text="{Binding Position}"></Run>
-                            </TextBlock>
-
-                        </Grid>
+                        <TextBlock Margin="5">
+                                <Run Text="{Binding Codes}"></Run>
+                                <Run Text="{Binding Namespec}"></Run>
+                                <LineBreak></LineBreak>
+                                <Run Text="{Binding Qualification}"></Run>
+                        </TextBlock>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
@@ -77,4 +59,4 @@
             <Setter Property="Margin" Value="10"/>
         </Style>
     </Application.Resources>
-    </Application>
+</Application>
