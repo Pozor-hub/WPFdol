@@ -10,18 +10,18 @@ namespace WPFdol
     public class Group
     {
         public static int GroupID = 0;
-        private string course;
-        private string speciality;
+        private int course;
+        private int speciality;
      
 
-        public Group(string number, string course)
+        public Group(int number, int course)
         {
             Number = number;
             Course = course;
           
         }
 
-        public string Number
+        public int Number
         {
             get => speciality;
             set
@@ -30,7 +30,7 @@ namespace WPFdol
                 OnPropertyChanged(new PropertyChangedEventArgs("Number1"));
             }
         }
-        public string Course
+        public int Course
         {
             get => course;
             set

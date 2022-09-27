@@ -27,11 +27,10 @@
 
         <GroupBox Grid.Column="1" Margin="10" Header="Создать группу" Foreground="purple" FontWeight="Bold" FontSize="13"  BorderThickness="3" BorderBrush="#FF00F9FF">
             <StackPanel x:Name="stack_panel_groups" Grid.Column="1" DataContext="{Binding ElementName=EmployeeList, Path=SelectedItem}" Background="#FFECFDFF" >
-
                 <Label FontWeight="Bold" FontSize="13">Номер</Label>
-                <TextBox x:Name="number_groups" Template="{DynamicResource TextBoxTemplate1}" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox x:Name="number_groups" Template="{DynamicResource TextBoxTemplate1}" Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Label FontWeight="Bold" FontSize="13">Курс</Label>
-                <TextBox x:Name="course_groups" Template="{DynamicResource TextBoxTemplate1}"  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox x:Name="course_groups" Template="{DynamicResource TextBoxTemplate1}"  Text="{Binding Course, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Label FontWeight="Bold" FontSize="13">Специальность</Label>
                 <ListBox Style="{StaticResource SpecialtyStyle}" x:Name="specialty_groups" Height="150"/>
                 <Button x:Name="ButtonCreateGroups" Click="Button_Click_2" Content="Создать" FontWeight="Bold" Height="20" Foreground="purple"/>
@@ -39,15 +38,24 @@
         </GroupBox>
 
         <GroupBox Grid.Column="2" Margin="10" Header="Создать студента" Foreground="purple" FontWeight="Bold" FontSize="13"  BorderThickness="3" BorderBrush="#FF00F9FF">
-            <StackPanel x:Name="stack_groups" Grid.Column="2" DataContext="{Binding NewEmployee}" Background="#FFECFDFF" >
-
+            <StackPanel x:Name="stack_student" Grid.Column="2" DataContext="{Binding NewStudent}" Background="#FFECFDFF" >
                 <Label Padding="0 5 0 0" FontWeight="Bold" FontSize="13">Фамилия</Label>
-                <TextBox x:Name="surname_groups" Template="{DynamicResource TextBoxTemplate1}"  IsEnabled="True" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox x:Name="surname_student" Template="{DynamicResource TextBoxTemplate1}"  IsEnabled="True" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Label FontWeight="Bold" FontSize="13">Имя</Label>
-                <TextBox x:Name="name_groups" Template="{DynamicResource TextBoxTemplate1}"  IsEnabled="True" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox x:Name="name_student" Template="{DynamicResource TextBoxTemplate1}"  IsEnabled="True" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Label FontWeight="Bold" FontSize="13">Группа</Label>
-                <ListBox x:Name="groups_groups" Height="150"></ListBox>
-
+                <ListBox x:Name="groups_student" Height="150">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Name="box">
+                                <Run Text="{Binding Number}"></Run>
+                                <Run Text="-"></Run>
+                                <Run Text="{Binding Course}"></Run>
+                                <Run Text="курс"></Run>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <Button x:Name="ButtonCreateGroups1" Click="Button_Click_3" Content="Создать" FontWeight="Bold" Height="20" Foreground="purple" BorderBrush="DarkCyan" />
             </StackPanel>
         </GroupBox>

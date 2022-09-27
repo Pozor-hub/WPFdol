@@ -73,11 +73,5 @@ namespace WPFdol
                 PropertyChanged(this, e);
             }
         }
-
-
-
-
-
-
     }
 }

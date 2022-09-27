@@ -46,9 +46,11 @@ namespace WPFdol
 
             Binding binding = new Binding();
             binding.Source = Specialitys;
+            Binding binding1 = new Binding();
+            binding1.Source = Groups;
 
             specialty_groups.SetBinding(ListBox.ItemsSourceProperty, binding);
-
+            groups_student.SetBinding(ListBox.ItemsSourceProperty, binding1);
 
             //binding.Source = Numbers;
 
@@ -113,18 +115,18 @@ namespace WPFdol
             
             Groups.Add(NewGroups);
 
-            string numberGroup = NumberGroup.Text.Trim();
-            if (numberGroup.Length == 0) return;
-
-            string course = Course.Text.Trim();
-            if (course.Length == 0) return;
+            int id = int.Parse(number_groups.Text.Trim());
+            if (id == 0 ) return;
+            
+            int Name = int.Parse(course_groups.Text.Trim());
+            if  (Name == 0) return;
 
 
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = connection;
-            command.CommandText = "INSERT INTO \"group\"(number, course) VALUES(@number, @course)";
-            command.Parameters.AddWithValue("@number", NpgsqlDbType.Varchar, numberGroup);
-            command.Parameters.AddWithValue("@course", NpgsqlDbType.Varchar, course);
+            command.CommandText = "INSERT INTO \"study_group\"(number, course) VALUES(@number, @course)";
+            command.Parameters.AddWithValue("@number", NpgsqlDbType.Integer, id);
+            command.Parameters.AddWithValue("@course", NpgsqlDbType.Integer, Name);
 
             int result = command.ExecuteNonQuery();
             if (result == 1)
@@ -139,13 +141,13 @@ namespace WPFdol
             Groups.Clear();
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = connection;
-            command.CommandText = "SELECT course FROM study_group ORDER BY number";
+            command.CommandText = "SELECT number, course FROM study_group ORDER BY number";
             NpgsqlDataReader result = command.ExecuteReader();
             if (result.HasRows)
             {
                 while (result.Read())
                 {
-                    //Groups.Add(new Group(result.GetString(0), result.GetString(1)));
+                   Groups.Add(new Group(result.GetInt32(0), result.GetInt32(1)));
                 }
             }
             result.Close();
@@ -155,22 +157,21 @@ namespace WPFdol
         {
             Students.Add(NewStudent);
 
-            string number_group = number_groups.Text.Trim();
-            if (number_group.Length == 0) return;
-            string CourseGroup = course_groups.Text.Trim();
-            if (CourseGroup.Length == 0) return;
+            string surname_group = surname_student.Text.Trim();
+            if (surname_group.Length == 0) return;
+            string name_group = name_student.Text.Trim();
+            if (name_group.Length == 0) return;
 
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = connection;
-            command.CommandText = "INSERT INTO group(course, speciality) VALUES(@course, @speciality)";
-            command.Parameters.AddWithValue("@cource", NpgsqlDbType.Varchar, number_group);
-            command.Parameters.AddWithValue("@speciality", NpgsqlDbType.Varchar, CourseGroup);
+            command.CommandText = "INSERT INTO student(name, surname) VALUES(@a, @b)";
+            command.Parameters.AddWithValue("@a", NpgsqlDbType.Varchar, surname_group);
+            command.Parameters.AddWithValue("@b", NpgsqlDbType.Varchar, name_group);
 
             int result = command.ExecuteNonQuery();
             if (result == 1)
             {
-                MessageBox.Show("Студент успешно добавлена!");
-                LoadGroup();
+                MessageBox.Show("Студент успешно добавлен!");
             }
         }
     }
