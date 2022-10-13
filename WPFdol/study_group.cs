@@ -12,14 +12,26 @@ namespace WPFdol
         public static int GroupID = 0;
         private int course;
         private int speciality;
-     
+        private string namespec;
 
-        public Group(int number, int course)
+
+        public Group(int number, int course, string namespec)
         {
             Number = number;
             Course = course;
-          
+            Namespec = namespec;
         }
+
+        public string Namespec
+        {
+            get => namespec;
+            set
+            {
+                namespec = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("Namespec"));
+            }
+        }
+
 
         public int Number
         {

@@ -13,7 +13,7 @@ namespace WPFdol
             private string surname;
             private string name;
 
-            public student(string number, string course)
+            public student(string surname, string name)
             {
                 Surname = surname;
 

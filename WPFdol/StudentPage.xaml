@@ -1,0 +1,60 @@
+﻿<Page x:Class="WPFdol.StudentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFdol"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StudentPage">
+
+    <Grid>
+        <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FFC6CCCC"/>
+                    <GradientStop Color="#FF83EBF7" Offset="0.889"/>
+                </LinearGradientBrush>
+        </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        <GroupBox Grid.Column="1" Margin="4" Header="Создать Студента" Foreground="Purple" FontWeight="Bold" FontSize="13"  BorderThickness="2">
+            <StackPanel  x:Name="stack_student" Grid.Column="1">
+                <Label Margin="0 50 0 0" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center">Фамилия</Label>
+                <TextBox x:Name="surname_student"  Padding="0 5 0 0" Template="{DynamicResource TextBoxTemplate1}"  IsEnabled="True" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label  FontWeight="Bold" FontSize="13" Margin=" 0 10 0 0" HorizontalAlignment="Center">Имя</Label>
+                <TextBox x:Name="name_student" Padding="0 5 0 0" Template="{DynamicResource TextBoxTemplate1}"  IsEnabled="True" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label FontWeight="Bold" FontSize="13" Margin=" 0 10 0 0" HorizontalAlignment="Center" >Список групп</Label>
+                <ComboBox x:Name="groups_student">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Number}"></Run>
+                                <Run Text="-"></Run>
+                                <Run Text="{Binding Course}"></Run>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button x:Name="ButtonCreateStudent"  Content="Создать" FontWeight="Bold" Height="40" Width="150" Foreground="purple" HorizontalAlignment="Center" Click="ButtonCreateSpeciality_Click"/>
+            </StackPanel>
+        </GroupBox>
+        
+        <GroupBox Grid.Column="0" Margin="4" Header="Список Студентов" Foreground="Purple" FontWeight="Bold" FontSize="13"  BorderThickness="2">
+            <StackPanel>
+                <ListBox x:Name="studentList" Height="300" Margin="10">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Surname}"></Run>                               
+                                <Run Text="{Binding Name}"></Run>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Page>
