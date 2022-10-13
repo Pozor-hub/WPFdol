@@ -30,11 +30,6 @@ namespace WPFdol
             NavigationService.Navigate(new SpecialtyPage());
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new GroupPage());
@@ -43,6 +38,16 @@ namespace WPFdol
         private void createStudent_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new StudentPage());
+        }
+
+        private void editSpeciality_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void editGroup_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new GroupEditPage());
         }
     }
 }

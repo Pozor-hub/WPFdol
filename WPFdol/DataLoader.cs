@@ -80,6 +80,5 @@ namespace WPFdol
             }
             result.Close();
         }
-
     }
 }

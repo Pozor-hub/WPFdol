@@ -25,13 +25,13 @@
         <StackPanel Grid.Column="0">
             <Label Content="Специальность" Margin="0 50" HorizontalAlignment="Center" FontWeight="Bold" FontSize="25"></Label>
             <Button x:Name="createSpecialty" Content="Создать" Width="240" Height="50" FontSize="20" Click="Button_Click" Background="White" FontWeight="Bold" ></Button>
-            <Button x:Name="editSpecialty" Content="Редактирование" Width="240" FontSize="20" Height="50" Margin="0 50"  FontWeight="Bold" Click="Button_Click_1"></Button>
+            <Button x:Name="editSpecialty" Content="Редактирование" Width="240" FontSize="20" Height="50" Margin="0 50"  FontWeight="Bold" Click="editSpeciality_Click"></Button>
             </StackPanel>
         
         <StackPanel Grid.Column="1">
             <Label Content="Группа" HorizontalAlignment="Center" Margin="0 50" FontWeight="Bold" FontSize="25"></Label>
                 <Button x:Name="createGroup" Content="Создать"  Width="240" Height="50"  Foreground="#FF006969" FontSize="20" FontWeight="Bold" Click="Button_Click_2" ></Button>
-            <Button x:Name="editGroup" Content="Редактирование"  Width="240" FontSize="20" Height="50" Margin="0 50"  FontWeight="Bold"></Button>
+            <Button x:Name="editGroup" Content="Редактирование"  Width="240" FontSize="20" Height="50" Margin="0 50"  FontWeight="Bold" Click="editGroup_Click"></Button>
         </StackPanel>
         
         <StackPanel Grid.Column="2">
